@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { View, StyleSheet } from "react-native";
+import { SafeAreaView, View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -18,38 +18,39 @@ import Footer from "./components/Footer";
 const Stack = createStackNavigator();
 
 export default function App() {
-  const navigatorRef = useRef(null);
-
-  const navigate = (screenName) => {
-    if (navigatorRef.current) {
-      navigatorRef.current.navigate(screenName);
-    }
-  };
+  const navigationRef = useRef();
 
   return (
-    <NavigationContainer ref={navigatorRef}>
-      <View style={styles.container}>
+    <NavigationContainer ref={navigationRef}>
+      <SafeAreaView style={styles.safeArea}>
         {/* Navbar fijo */}
-        <Navbar navegar={navigate} />
+        <Navbar navegar={(screen) => navigationRef.current?.navigate(screen)} />
 
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Catalogo" component={CatalogoScreen} />
-          <Stack.Screen name="QuienesSomos" component={QuienesSomosScreen} />
-          <Stack.Screen name="Tienda" component={TiendaScreen} />
-          <Stack.Screen name="Ofertas" component={OfertasScreen} />
-          <Stack.Screen name="Contacto" component={ContactoScreen} />
-        </Stack.Navigator>
+        {/* Contenedor principal de la navegación */}
+        <View style={styles.stackContainer}>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Catalogo" component={CatalogoScreen} />
+            <Stack.Screen name="QuienesSomos" component={QuienesSomosScreen} />
+            <Stack.Screen name="Tienda" component={TiendaScreen} />
+            <Stack.Screen name="Ofertas" component={OfertasScreen} />
+            <Stack.Screen name="Contacto" component={ContactoScreen} />
+          </Stack.Navigator>
+        </View>
 
-        {/* Footer */}
+        {/* Footer fijo */}
         <Footer />
-      </View>
+      </SafeAreaView>
     </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
+    backgroundColor: "#FDF3EB", // Mantener color de fondo
+  },
+  stackContainer: {
+    flex: 1, // Esto permite que la navegación ocupe todo el espacio
   },
 });

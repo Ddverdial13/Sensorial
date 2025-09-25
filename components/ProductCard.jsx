@@ -7,10 +7,11 @@ export default function ProductCard({ producto }) {
       <Image
         source={
           typeof producto.imagen === "string"
-            ? { uri: producto.imagen }  // imágenes remotas
-            : producto.imagen          // imágenes locales
+            ? { uri: producto.imagen } // Para imágenes remotas
+            : producto.imagen         // Para imágenes locales
         }
         style={styles.image}
+        resizeMode="contain" // Mantiene la imagen completa centrada
       />
       <Text style={styles.nombre}>{producto.nombre}</Text>
       <Text style={styles.precio}>{producto.precio}</Text>
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   card: {
     width: 150,
     margin: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#FDF3EB",
     borderRadius: 8,
     shadowColor: "#000",
     shadowOpacity: 0.1,
@@ -42,15 +43,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
   },
   precio: {
     fontSize: 14,
     color: "#C68666",
     marginVertical: 2,
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
   },
   descripcion: {
     fontSize: 12,
-    color: "#555",
+    color: "#5C4C43",
     textAlign: "center",
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
   },
 });

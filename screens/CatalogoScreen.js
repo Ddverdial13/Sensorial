@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Modal, Button, Image, Platform } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+  Button,
+  Image,
+  Platform,
+} from "react-native";
 import ProductCard from "../components/ProductCard";
 
 export default function CatalogoScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
-
-  
   const productos = [
     { id: 1, nombre: "Vela de flor", precio: "L.350", descripcion: "Regala bienestar en este Día de la Mujer Hondureña! Vela aromática de 8 onzas - tamaño XL dura más de 50 horas", imagen: require("../assets/vela1.jpg") },
     { id: 2, nombre: "Tin dorada", precio: "L.220", descripcion: "Pide nuestra vela de 3 oz en su elegante latita dorada. Pudes personalizarla en dorado y elegir tu aroma", imagen: require("../assets/vela2.jpg") },
@@ -30,62 +38,76 @@ export default function CatalogoScreen() {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.titulo}>Catálogo de Velas</Text>
       <View style={styles.grid}>
-        {productos.map(item => (
-          <TouchableOpacity key={item.id} onPress={() => handlePress(item)} style={styles.cardContainer}>
+        {productos.map((item) => (
+          <TouchableOpacity
+            key={item.id}
+            onPress={() => handlePress(item)}
+            style={styles.cardContainer}
+          >
             <ProductCard producto={item} />
           </TouchableOpacity>
         ))}
       </View>
 
-      {productoSeleccionado && (
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Image
-                source={productoSeleccionado.imagen} // <-- Usar directamente
-                style={styles.modalImagen}
-                resizeMode="contain"
-              />
-              <Text style={styles.modalTitulo}>{productoSeleccionado.nombre}</Text>
-              <Text style={styles.modalPrecio}>{productoSeleccionado.precio}</Text>
-              <Text style={styles.modalDescripcion}>{productoSeleccionado.descripcion}</Text>
-              <Button title="Cerrar" onPress={() => setModalVisible(false)} color="#C68666" />
-            </View>
+      {/* Modal de producto */}
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            {productoSeleccionado && (
+              <>
+                <Image
+                  source={
+                    typeof productoSeleccionado.imagen === "string"
+                      ? { uri: productoSeleccionado.imagen }
+                      : productoSeleccionado.imagen
+                  }
+                  style={styles.modalImagen}
+                  resizeMode="contain"
+                />
+                <Text style={styles.modalTitulo}>{productoSeleccionado.nombre}</Text>
+                <Text style={styles.modalPrecio}>{productoSeleccionado.precio}</Text>
+                <Text style={styles.modalDescripcion}>{productoSeleccionado.descripcion}</Text>
+                <Button
+                  title="Cerrar"
+                  color="#C68666"
+                  onPress={() => setModalVisible(false)}
+                />
+              </>
+            )}
           </View>
-        </Modal>
-      )}
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    padding: 10, 
-    alignItems: "center", 
-    backgroundColor: "#FDF3EB" 
+  container: {
+    padding: 10,
+    alignItems: "center",
+    backgroundColor: "#FDF3EB",
   },
-  titulo: { 
-    fontSize: 22, 
-    fontWeight: "700", 
-    marginVertical: 10, 
-    color: "#C68666", 
-    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
+  titulo: {
+    fontSize: 22,
+    fontWeight: "700",
+    marginVertical: 10,
+    color: "#C68666",
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
   },
-  grid: { 
-    flexDirection: "row", 
-    flexWrap: "wrap", 
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
-    maxWidth: 5 * 150 + 40  
   },
-  cardContainer: { 
-    width: 150,      
-    margin: 10,      
-    alignItems: "center" 
+  cardContainer: {
+    width: 150,
+    margin: 10,
+    alignItems: "center",
   },
   modalContainer: {
     flex: 1,
@@ -103,26 +125,27 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginBottom: 15,
-    borderRadius: 10
+    borderRadius: 10,
   },
-  modalTitulo: { 
-    fontSize: 20, 
-    fontWeight: "700", 
-    marginBottom: 10, 
+  modalTitulo: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginBottom: 10,
     color: "#C68666",
-    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
+    textAlign: "center",
   },
-  modalPrecio: { 
-    fontSize: 18, 
-    marginBottom: 10, 
+  modalPrecio: {
+    fontSize: 18,
+    marginBottom: 10,
     color: "#5C4C43",
-    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
   },
-  modalDescripcion: { 
-    fontSize: 16, 
-    marginBottom: 20, 
+  modalDescripcion: {
+    fontSize: 16,
+    marginBottom: 20,
     textAlign: "center",
     color: "#5C4C43",
-    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
   },
 });
