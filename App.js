@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
-import { SafeAreaView, View, StyleSheet } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Screens
 import HomeScreen from "./screens/HomeScreen";
@@ -15,42 +15,32 @@ import ContactoScreen from "./screens/ContactoScreen";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const navigationRef = useRef();
-
   return (
-    <NavigationContainer ref={navigationRef}>
-      <SafeAreaView style={styles.safeArea}>
+    <NavigationContainer>
+      <View style={styles.container}>
         {/* Navbar fijo */}
-        <Navbar navegar={(screen) => navigationRef.current?.navigate(screen)} />
+        <Navbar navegar={(pantalla) => navigatorRef?.current?.navigate(pantalla)} />
 
-        {/* Contenedor principal de la navegación */}
-        <View style={styles.stackContainer}>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Catalogo" component={CatalogoScreen} />
-            <Stack.Screen name="QuienesSomos" component={QuienesSomosScreen} />
-            <Stack.Screen name="Tienda" component={TiendaScreen} />
-            <Stack.Screen name="Ofertas" component={OfertasScreen} />
-            <Stack.Screen name="Contacto" component={ContactoScreen} />
-          </Stack.Navigator>
-        </View>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Catalogo" component={CatalogoScreen} />
+          <Stack.Screen name="QuienesSomos" component={QuienesSomosScreen} />
+          <Stack.Screen name="Tienda" component={TiendaScreen} />
+          <Stack.Screen name="Ofertas" component={OfertasScreen} />
+          <Stack.Screen name="Contacto" component={ContactoScreen} />
+        </Stack.Navigator>
 
-        {/* Footer fijo */}
+        {/* Footer */}
         <Footer />
-      </SafeAreaView>
+      </View>
     </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#FDF3EB", // Mantener color de fondo
-  },
-  stackContainer: {
-    flex: 1, // Esto permite que la navegación ocupe todo el espacio
-  },
+  container: { flex: 1 },
 });
+

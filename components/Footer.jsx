@@ -5,23 +5,22 @@ export default function Footer() {
   return (
     <View style={styles.footer}>
       <Text style={styles.text}>© 2025 Sensorial. Todos los derechos reservados.</Text>
-      <Text style={styles.text}>Contacto: info@sensorial.com</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   footer: {
-    backgroundColor: "#C68666",
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    alignItems: "center",
+    height: 50,
     justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FDF3EB", // Fondo beige uniforme
+    borderTopWidth: 1,
+    borderTopColor: "#C68666", // Marrón cálido para borde
   },
   text: {
-    color: "#FDF3EB",
     fontSize: 14,
-    textAlign: "center",
+    color: "#5C4C43", // Gris oscuro suave
     fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
   },
 });

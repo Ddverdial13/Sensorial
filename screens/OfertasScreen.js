@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Alert, Platform } from "react-native";
 
-export default function OfertasScreen() {
+export default function OffersScreen() {
   const offers = [
     { id: 1, name: "Pack Relax", desc: "3 velas de lavanda por 2", price: 300 },
     { id: 2, name: "Dúo Aromático", desc: "Vainilla + Canela con 20% OFF", price: 250 },
@@ -14,13 +14,16 @@ export default function OfertasScreen() {
 
   const claimOffer = (offer) => {
     const mensaje = `Oferta reclamada: ${offer.name} - Lps. ${offer.price}`;
-    if (Platform.OS === "web") window.alert(mensaje);
-    else Alert.alert("✅ Oferta reclamada", mensaje);
+    if (Platform.OS === "web") {
+      window.alert(mensaje);
+    } else {
+      Alert.alert("✅ Oferta reclamada", mensaje);
+    }
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Ofertas Especiales</Text>
+      <Text style={styles.title}> Ofertas Especiales </Text>
       {offers.map((offer) => (
         <TouchableOpacity
           key={offer.id}
@@ -59,8 +62,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 10,
     borderRadius: 12,
-    width: 320,
-    maxWidth: "90%",
+    width: 300,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },

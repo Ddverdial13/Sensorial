@@ -10,9 +10,9 @@ export default function ContactoScreen() {
     const mensajeAlerta = "Tu mensaje ha sido enviado correctamente.";
 
     if (Platform.OS === "web") {
-      window.alert(` Mensaje enviado: ${mensajeAlerta}`);
+      window.alert(`✅ Mensaje enviado: ${mensajeAlerta}`);
     } else {
-      Alert.alert(" Mensaje enviado", mensajeAlerta);
+      Alert.alert("✅ Mensaje enviado", mensajeAlerta);
     }
 
     setNombre(""); 
@@ -22,7 +22,7 @@ export default function ContactoScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.titulo}>Contáctanos</Text>
+      <Text style={styles.titulo}> Contáctanos</Text>
 
       <TextInput
         style={styles.input}
@@ -42,7 +42,7 @@ export default function ContactoScreen() {
       />
 
       <TextInput
-        style={[styles.input, styles.textArea]}
+        style={[styles.input, { height: 120 }]}
         placeholder="Escribe tu mensaje"
         multiline
         value={mensaje}
@@ -83,10 +83,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     color: "#5C4C43",
     fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
-  },
-  textArea: {
-    height: 120,
-    textAlignVertical: "top", 
   },
   button: {
     backgroundColor: "#C68666",

@@ -3,11 +3,7 @@ import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Alert, Platform }
 
 export default function QuienesSomosScreen() {
   const handlePress = (tipo) => {
-    if (Platform.OS === "web") {
-      window.alert(`Has tocado la sección: ${tipo}`);
-    } else {
-      Alert.alert("Información", `Has tocado la sección: ${tipo}`);
-    }
+    Alert.alert("Información", `Has tocado la sección: ${tipo}`);
   };
 
   return (
@@ -39,7 +35,7 @@ const styles = StyleSheet.create({
     flexGrow: 1, 
     backgroundColor: "#FDF3EB", 
     padding: 15, 
-    alignItems: "center",
+    alignItems: "center"
   },
   titulo: { 
     fontSize: 22, 
@@ -47,21 +43,21 @@ const styles = StyleSheet.create({
     textAlign: "center", 
     marginBottom: 15,
     color: "#C68666",
-    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
   },
   subtitulo: { 
     fontSize: 18, 
     fontWeight: "700", 
     marginBottom: 5,
     color: "#C68666",
-    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
   },
   texto: { 
     fontSize: 14, 
     lineHeight: 20, 
     color: "#5C4C43",
     textAlign: "center",
-    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
   },
   textoCentrado: {
     fontSize: 14,
@@ -69,16 +65,15 @@ const styles = StyleSheet.create({
     color: "#5C4C43",
     textAlign: "center",
     marginBottom: 20,
-    maxWidth: 350, // ancho adaptable a web y móvil
-    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif",
+    maxWidth: 300,
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
   },
   card: { 
     marginTop: 15, 
     padding: 15, 
     borderRadius: 10, 
     backgroundColor: "#FDF3EB",
-    width: "90%",
-    maxWidth: 350,
+    width: 300,        
     alignItems: "center",
     shadowColor: "#000",
     shadowOpacity: 0.1,
