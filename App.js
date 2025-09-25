@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 // Screens
 import HomeScreen from "./screens/HomeScreen";
@@ -15,14 +15,22 @@ import ContactoScreen from "./screens/ContactoScreen";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
+  const navigatorRef = useRef(null);
+
+  const navigate = (screenName) => {
+    if (navigatorRef.current) {
+      navigatorRef.current.navigate(screenName);
+    }
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigatorRef}>
       <View style={styles.container}>
         {/* Navbar fijo */}
-        <Navbar navegar={(pantalla) => navigatorRef?.current?.navigate(pantalla)} />
+        <Navbar navegar={navigate} />
 
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={HomeScreen} />
@@ -41,6 +49,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
 });
-
