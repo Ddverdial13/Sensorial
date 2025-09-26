@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Platform } from "react-native";
+import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Platform, Linking } from "react-native";
+import { FontAwesome } from '@expo/vector-icons'; // Asegúrate de tener @expo/vector-icons instalado
 
 export default function ContactoScreen() {
   const [nombre, setNombre] = useState("");
@@ -20,9 +21,14 @@ export default function ContactoScreen() {
     setMensaje("");
   };
 
+  const abrirInstagram = () => {
+    const url = "https://www.instagram.com/sensorialhn/";
+    Linking.openURL(url);
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.titulo}> Contáctanos</Text>
+      <Text style={styles.titulo}>Contáctanos</Text>
 
       <TextInput
         style={styles.input}
@@ -52,6 +58,11 @@ export default function ContactoScreen() {
 
       <TouchableOpacity style={styles.button} onPress={enviarFormulario}>
         <Text style={styles.buttonText}>Enviar</Text>
+      </TouchableOpacity>
+
+      {/* Ícono de Instagram centrado */}
+      <TouchableOpacity style={styles.instagramButton} onPress={abrirInstagram}>
+        <FontAwesome name="instagram" size={40} color="#C13584" />
       </TouchableOpacity>
     </ScrollView>
   );
@@ -97,5 +108,10 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
     fontFamily: Platform.OS === "ios" ? "Helvetica" : "sans-serif"
+  },
+  instagramButton: {
+    marginTop: 30,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
